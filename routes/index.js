@@ -4,6 +4,7 @@ const auth = require("../middlewares/auth");
 const userRouter = require("./users");
 const workoutRouter = require("./workouts");
 const wellnessRouter = require("./wellnessCompletions");
+const customExerciseRouter = require("./customExercises");
 const NotFoundError = require("../errors/NotFoundError");
 
 router.post("/signup", createUser);
@@ -11,6 +12,7 @@ router.post("/signin", login);
 
 router.use(auth);
 router.use("/users", userRouter);
+router.use("/custom-exercises", customExerciseRouter);
 router.use("/workouts", workoutRouter);
 router.use("/wellness-completions", wellnessRouter);
 

@@ -1,7 +1,6 @@
 const Workout = require("../models/workout");
 const BadRequestError = require("../errors/BadRequestError");
 const NotFoundError = require("../errors/NotFoundError");
-const ForbiddenError = require("../errors/UnauthorizedError");
 
 const getWorkouts = (req, res, next) => {
   Workout.find({ owner: req.user._id })
@@ -24,13 +23,16 @@ const createWorkout = (req, res, next) => {
 
 const updateWorkout = (req, res, next) => {
   const { workoutId } = req.params;
-  const { completed } = req.body;
+  const { completed, exercises } = req.body;
 
-  Workout.findOneAndUpdate(
-    { _id: workoutId, owner: req.user._id },
-    { completed },
-    { new: true, runValidators: true },
-  )
+  const update = {};
+  if (completed !== undefined) update.completed = completed;
+  if (exercises !== undefined) update.exercises = exercises;
+
+  Workout.findOneAndUpdate({ _id: workoutId, owner: req.user._id }, update, {
+    new: true,
+    runValidators: true,
+  })
     .orFail(() => new NotFoundError("Workout not found"))
     .then((workout) => res.send(workout))
     .catch((err) => {
