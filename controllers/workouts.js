@@ -23,11 +23,12 @@ const createWorkout = (req, res, next) => {
 
 const updateWorkout = (req, res, next) => {
   const { workoutId } = req.params;
-  const { completed, exercises } = req.body;
+  const { completed, exercises, durationSeconds } = req.body;
 
   const update = {};
   if (completed !== undefined) update.completed = completed;
   if (exercises !== undefined) update.exercises = exercises;
+  if (durationSeconds !== undefined) update.durationSeconds = durationSeconds;
 
   Workout.findOneAndUpdate({ _id: workoutId, owner: req.user._id }, update, {
     new: true,

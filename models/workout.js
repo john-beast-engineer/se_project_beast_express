@@ -14,6 +14,10 @@ const workoutSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  durationSeconds: {
+    type: Number,
+    default: null,
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",

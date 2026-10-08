@@ -2,9 +2,13 @@ const WellnessCompletion = require("../models/wellnessCompletion");
 const BadRequestError = require("../errors/BadRequestError");
 
 const createCompletion = (req, res, next) => {
-  const { activityId } = req.body;
+  const { activityId, durationSeconds } = req.body;
 
-  WellnessCompletion.create({ activityId, owner: req.user._id })
+  WellnessCompletion.create({
+    activityId,
+    durationSeconds,
+    owner: req.user._id,
+  })
     .then((completion) => res.status(201).send(completion))
     .catch((err) => {
       if (err.name === "ValidationError") {

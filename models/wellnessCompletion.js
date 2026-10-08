@@ -14,6 +14,10 @@ const wellnessCompletionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  durationSeconds: {
+    type: Number,
+    default: null,
+  },
 });
 
 module.exports = mongoose.model("wellnessCompletion", wellnessCompletionSchema);
