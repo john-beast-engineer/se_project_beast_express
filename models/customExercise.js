@@ -13,6 +13,11 @@ const customExerciseSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+    required: true,
+  },
   isGlobal: {
     type: Boolean,
     default: false,
